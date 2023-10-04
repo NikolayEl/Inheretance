@@ -18,6 +18,13 @@ namespace Academy
             Age = age;
             Console.WriteLine($"HConstructor:\t {this.GetHashCode()}");
         }
+        public Human(Human other)
+        {
+            LastName = other.LastName;
+            FirstName = other.FirstName;
+            Age = other.Age;
+            Console.WriteLine($"HCopyConstructor:\t {this.GetHashCode()}");
+        }
         ~Human()
         {
             Console.WriteLine($"HDesstructor:\t {this.GetHashCode()}");
@@ -25,6 +32,11 @@ namespace Academy
         public override string ToString()
         {
             return $"{LastName} {FirstName} {Age}";
+        }
+        public virtual void Print()
+        {
+            Console.WriteLine(this.GetType());
+            Console.WriteLine($"{LastName} {FirstName} {Age}");
         }
     }
 }
