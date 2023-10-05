@@ -40,7 +40,10 @@ namespace Academy
         {
             base.Print();
             Console.Write($" {Speciality} {Experience}");
-
+        }
+        public override string PrepearForFile()
+        {
+            return base.PrepearForFile() + $";{Speciality};{Experience}";
         }
     }
 }

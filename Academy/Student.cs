@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Academy
 {
@@ -51,6 +52,10 @@ namespace Academy
         {
             base.Print() ;
             Console.Write($" {Speciality} {Group} {Rating} {Attendance}");
+        }
+        public override string PrepearForFile()
+        {
+            return base.PrepearForFile() + $";{Speciality};{Group};{Rating};{Attendance}";
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,6 +38,10 @@ namespace Academy
         {
             Console.WriteLine(this.GetType());
             Console.WriteLine($"{LastName} {FirstName} {Age}");
+        }
+        public virtual string PrepearForFile()
+        {
+            return $"{this.GetType()};{LastName};{FirstName};{Age}";
         }
     }
 }
