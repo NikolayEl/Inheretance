@@ -60,6 +60,7 @@ namespace Academy
             }
             save("temp.csv", group);
             Console.WriteLine(Delimitr);
+
             Human[] exam = new Human[NumberOfLines(path)];
             load(path, exam);
             foreach (Human i in exam)
