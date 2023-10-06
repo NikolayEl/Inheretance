@@ -1,5 +1,5 @@
-﻿#define WRITE_TO_FILE
-//#define READ_FROM_FILE
+﻿//#define WRITE_TO_FILE
+#define READ_FROM_FILE
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,9 +73,8 @@ namespace Academy
             Directory.SetCurrentDirectory("..\\..");
             string currentDirectory = Directory.GetCurrentDirectory();
             string filename = "temp2.csv";
-            string path = currentDirectory + "temp.csv";
-            Human[] exam = new Human[NumberOfLines(path)];
-            load(path, exam);
+            string path = currentDirectory + "\\" + filename;
+            Human[] exam = loadAtOA(path);
             foreach (Human i in exam)
             {
                 Console.WriteLine($"Exam - {i}");
@@ -99,7 +98,7 @@ namespace Academy
             StreamWriter sw = new StreamWriter(path);
             for (int i = 0; i < group.Length; i++)
             {
-                sw.WriteLine($"{group[i].GetType()},\t{group[i]};");
+                sw.WriteLine($"{group[i].GetType()};\t{group[i]}");
             }
             sw.Close();
             System.Diagnostics.Process.Start("notepad", path);
@@ -123,7 +122,9 @@ namespace Academy
                 while (!sr.EndOfStream)
             {
                 string buffer = sr.ReadLine();
-                string[] values = buffer.Split(':', ',');
+                string[] values = buffer.Split(';');
+                group.Add(HumanFactory(values[0]));
+                group.Last().Init(values);
             }
             sr.Close();
             return group.ToArray();

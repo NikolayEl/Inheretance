@@ -1,4 +1,4 @@
-﻿#define WRITE_TO_FILE
+﻿//#define WRITE_TO_FILE
 //#define READ_FROM_FILE
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,8 @@ namespace Files
     {
         static void Main(string[] args)
         {
+
+            Console.WriteLine(Convert.ToInt32(" 235"));
 #if WRITE_TO_FILE
             //. - это ссылка на текущий каталог
             //.. - это ссылка на родительский каталог

@@ -29,6 +29,11 @@ namespace Academy
         {
             return base.ToString() + $";{Thesis}";
         }
+        public override void Init(string[] values)
+        {
+            base.Init(values);
+            Thesis = values[8];
+        }
         public override string PrepearForFile()
         {
             return base.PrepearForFile() + $";{Thesis}";
