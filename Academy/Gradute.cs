@@ -27,7 +27,7 @@ namespace Academy
 
         public override string ToString()
         {
-            return base.ToString() + $" {Thesis}";
+            return base.ToString() + $";{Thesis}";
         }
         public override string PrepearForFile()
         {

@@ -39,7 +39,7 @@ namespace Academy
         public override void Print()
         {
             base.Print();
-            Console.Write($" {Speciality} {Experience}");
+            Console.Write($";{Speciality}; {Experience}");
         }
         public override string PrepearForFile()
         {

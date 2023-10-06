@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define WRITE_TO_FILE
+//#define READ_FROM_FILE
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ namespace Academy
         public static readonly string Delimitr = "\n----------------------------------------------------\n";
         static void Main(string[] args)
         {
+#if WRITE_TO_FILE
             Human human = new Human("Vercetty", "Tomy", 30);
             Console.WriteLine(human);
             Console.WriteLine(Delimitr);
@@ -44,40 +47,62 @@ namespace Academy
                 new Teacher("Diaz", "Ricardo", 50, "Weapon distribution", 25) };
 
             Console.WriteLine(Delimitr);
-            for(int i = 0; i < group.Length;i++)
+            for (int i = 0; i < group.Length; i++)
             {
                 //Console.WriteLine(group[i]);
                 group[i].Print();
                 Console.WriteLine(Delimitr);
             }
-            string path = "temp.csv";
+            Directory.SetCurrentDirectory("..\\..");
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string filename = "temp.csv";
             string[] substrings = new string[group.Length];
+            string path = currentDirectory + "temp.csv";            
             int j = 0;
-            foreach(Human i in group)
+            foreach (Human i in group)
             {
                 substrings[j] = i.ToString();
                 j++;
             }
-            save("temp.csv", group);
-            Console.WriteLine(Delimitr);
+            //save("temp.csv", group);
+            saveAtOa("temp2.csv", group);
+            Console.WriteLine(Delimitr); 
+#endif
 
+#if READ_FROM_FILE
+            Directory.SetCurrentDirectory("..\\..");
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string filename = "temp2.csv";
+            string path = currentDirectory + "temp.csv";
             Human[] exam = new Human[NumberOfLines(path)];
             load(path, exam);
             foreach (Human i in exam)
             {
                 Console.WriteLine($"Exam - {i}");
-            }
+            } 
+#endif
         }
         static async void save(string path, Human[] group)
         {
-            using(StreamWriter sw = new StreamWriter(path)) 
+            using (StreamWriter sw = new StreamWriter(path))
             {
-                foreach(Human i in group)
+                foreach (Human i in group)
                 {
                     sw.WriteLine(i.PrepearForFile());
                 }
                 Console.WriteLine($"Writing data to file {path} is completed.");
+                System.Diagnostics.Process.Start("notepad", path);
             }
+        }
+        static void saveAtOa(string path, Human[] group)
+        {
+            StreamWriter sw = new StreamWriter(path);
+            for (int i = 0; i < group.Length; i++)
+            {
+                sw.WriteLine($"{group[i].GetType()},\t{group[i]};");
+            }
+            sw.Close();
+            System.Diagnostics.Process.Start("notepad", path);
         }
         static int NumberOfLines(string path)
         {
@@ -91,21 +116,42 @@ namespace Academy
             }
             return count;
         }
+        static Human[] loadAtOA(string path)
+        {
+            List<Human> group = new List<Human>();
+            StreamReader sr = new StreamReader(path);
+                while (!sr.EndOfStream)
+            {
+                string buffer = sr.ReadLine();
+                string[] values = buffer.Split(':', ',');
+            }
+            sr.Close();
+            return group.ToArray();
+        }
+        static Human HumanFactory(string type)
+        {
+            Human human = null;
+            if (type == typeof(Academy.Student).ToString()) human = new Student("", "", 0, "", "", 0, 0);
+            if (type == typeof(Academy.Teacher).ToString()) human = new Teacher("", "", 0, "", 0);
+            if (type == typeof(Academy.Gradute).ToString()) human = new Gradute("", "", 0, "", "", 0, 0, "");
+            return human;
+        }
+
         static async void load(string path, Human[] human)
         {
-            if(File.Exists(path))
+            if (File.Exists(path))
             {
-                using(StreamReader sr = File.OpenText(path))
+                using (StreamReader sr = File.OpenText(path))
                 {
                     string str;
                     int count = 0;
-                    while((str = sr.ReadLine()) != null)
+                    while ((str = sr.ReadLine()) != null)
                     {
                         string[] substring = str.Split(';');
-                        switch (substring[0]) 
+                        switch (substring[0])
                         {
                             case "Academy.Student":
-                                Student temp = new Student(substring[1], substring[2], Convert.ToInt32(substring[3]), 
+                                Student temp = new Student(substring[1], substring[2], Convert.ToInt32(substring[3]),
                                     substring[4], substring[5], Convert.ToDouble(substring[6]), Convert.ToDouble(substring[7]));
                                 human[count] = temp;
                                 count++;

@@ -37,7 +37,7 @@ namespace Academy
         public virtual void Print()
         {
             Console.WriteLine(this.GetType());
-            Console.WriteLine($"{LastName} {FirstName} {Age}");
+            Console.WriteLine($"{LastName}; {FirstName}; {Age}");
         }
         public virtual string PrepearForFile()
         {

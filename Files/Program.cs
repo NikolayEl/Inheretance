@@ -1,5 +1,5 @@
 ﻿#define WRITE_TO_FILE
-#define READ_FROM_FILE
+//#define READ_FROM_FILE
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +26,18 @@ namespace Files
             string cmd = $"{currentDirectory}\\{filename}";
             System.Diagnostics.Process.Start("notepad", cmd);
 
+#endif
+#if READ_FROM_FILE
+
+            Directory.SetCurrentDirectory("..\\..");
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string filename = "File.txt";
+            StreamReader sr = new StreamReader(filename);
+            while(!sr.EndOfStream)
+            {
+                string buffer = sr.ReadLine();
+                Console.WriteLine(buffer);
+            }
 #endif
 
         }
