@@ -12,7 +12,8 @@ namespace GeometryFigure
     {
         static void Main(string[] args)
         {
-
+            Triangle triangle = new Triangle(10, 8, 7, 10, 10, 5, "red");
+            triangle.Draw();
         }
     }
 }

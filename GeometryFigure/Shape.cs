@@ -20,6 +20,7 @@ namespace GeometryFigure
         public int StartY { get; set; }
         public int LineWidth { get; set; }
         public Color color { get; set; }
+        public Pen Ppen {  get; set; }
 
         static Color ColorSelection(string select)
         {
@@ -47,6 +48,7 @@ namespace GeometryFigure
             StartY = startY;
             LineWidth = lineWidth;
             this.color = ColorSelection(color);
+            Ppen = new Pen(this.color, lineWidth);
         }
 
         public virtual double GetArea() => 0;
